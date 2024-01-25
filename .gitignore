@@ -1,3 +1,7 @@
 .DS_Store
 .idea/
 Notebooks/.ipynb_checkpoints
+src/__pycache__
+src/experiments/__pycache__
+src/wandb
+src/logs
