@@ -40,7 +40,8 @@ if __name__ == '__main__':
     elif args[0] in list(params.keys()):
         print("PyTorch Version: ",torch.__version__)
         seed_everything(42)
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        #device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        device = 'mps'
         logs_dir='logs'
         logger = create_logger(logs_dir)
         logger.info('Running {} ({})...'.format(args[0], params[args[0]]))

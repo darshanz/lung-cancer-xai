@@ -25,6 +25,7 @@ class Basic3DModelRunner():
         wandb.init(project="lung_basic3d")
         config = read_config(conf_file)
         self.device = device
+        print(self.device)
         self.conf = config['train']
         self.model_path = f'logs/saved_model/saved_model_{int(time.time())}.pt'
 
@@ -34,29 +35,26 @@ class Basic3DModelRunner():
         train_dataset = LungOneDataset(fold=0)
         val_dataset = LungOneDataset(fold= 0, train=False) 
         trainloader = DataLoader(train_dataset, batch_size=4)
-        testloader = DataLoader(val_dataset, batch_size=4)
-
-        # test_loader = self.data_loader(data_type='test')
+        testloader = DataLoader(val_dataset, batch_size=4) 
         dataloaders = {"train": trainloader, "val": testloader}
 
-        # model
+         
         model = Custom3DCNN().to(self.device)
         optimizer = optim.Adam(model.parameters(), self.conf['learning_rate'])
 
         criterion = CensoredCrossEntropyLoss()
         NUM_EPOCHS = self.conf['epochs']
         best_ci = 0.0
-
-        # intital model state
+ 
         best_model_wts = copy.deepcopy(model.state_dict())
         epoch_tqdm = tqdm(total=NUM_EPOCHS, desc='Epoch', position=0)
         training_info = tqdm(total=0, position=1, bar_format='{desc}')
         for epoch in range(NUM_EPOCHS):
             for phase in ['train', 'val']:
                 if phase == 'train':
-                    model.train()  # Set model to training mode
+                    model.train()   
                 else:
-                    model.eval()  # Set model to evaluate mode
+                    model.eval()   
 
                 running_loss = 0.0
 
@@ -67,10 +65,8 @@ class Basic3DModelRunner():
                 events_train = []
                 events_val = []
 
-                for ct, y, e in dataloaders[phase]: 
-                    # move to gpu
-                    ct = ct.to(self.device) 
-                    print(ct.shape)
+                for ct, y, e in dataloaders[phase]:  
+                    ct = ct.to(self.device)  
                     e = e.to(self.device) #event
                     labels = y.to(self.device)
  

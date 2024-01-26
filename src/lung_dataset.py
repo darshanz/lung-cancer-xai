@@ -15,7 +15,7 @@ class LungOneDataset(Dataset):
     def __getitem__(self, index):
         patient_id = self.data_.iloc[index]['patient_id']
         ct = torch.load(f'{self.DATA_DIR}/CT_ONLY/vols/{patient_id}.pt')
-        return ct, self.data_.iloc[index]['survival_time'], self.data_.iloc[index]['event_status']
+        return ct.to(torch.float32), self.data_.iloc[index]['survival_time'], self.data_.iloc[index]['event_status']
         
     def __len__(self):
         return self.len
