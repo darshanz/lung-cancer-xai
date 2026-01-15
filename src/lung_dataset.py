@@ -5,7 +5,7 @@ from torch.utils.data import Dataset, DataLoader
 
 class LungOneDataset(Dataset):
     def __init__(self, fold=0, train=True):
-        self.DATA_DIR  = "/Users/sudarshan/darshanz/datasets/lung1"
+        self.DATA_DIR  = "../data/lung1"
         label_df = pd.read_csv(f'{self.DATA_DIR}/label.csv')
         self.data_  = label_df[label_df['fold'] != fold] if train else label_df[label_df['fold'] == fold]
         self.event_status =  self.data_['event_status']

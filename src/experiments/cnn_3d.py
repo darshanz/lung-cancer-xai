@@ -5,7 +5,7 @@ import torch
 from torch import nn 
 from torch.utils.data import DataLoader
 from lung_dataset import LungOneDataset 
-from models import Custom3DCNN
+from models import CNN3D
 from utils import read_config 
 import torch.optim as optim
 from sklearn.metrics import f1_score
@@ -39,7 +39,7 @@ class Basic3DModelRunner():
         dataloaders = {"train": trainloader, "val": testloader}
 
          
-        model = Custom3DCNN().to(self.device)
+        model = CNN3D().to(self.device)
         optimizer = optim.Adam(model.parameters(), self.conf['learning_rate'])
 
         criterion = CensoredCrossEntropyLoss()

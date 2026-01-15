@@ -5,3 +5,4 @@ src/__pycache__
 src/experiments/__pycache__
 src/wandb
 src/logs
+data

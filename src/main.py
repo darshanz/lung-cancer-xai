@@ -7,7 +7,7 @@ import os
 import random
 import pandas as pd
 from utils import read_config, create_logger 
-from experiments.basic_3d import Basic3DModelRunner
+from experiments.cnn_3d import Basic3DModelRunner
 
 
 import sys
