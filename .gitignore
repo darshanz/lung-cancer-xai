@@ -6,3 +6,5 @@ src/experiments/__pycache__
 src/wandb
 src/logs
 data
+mlruns
+mlflow.db

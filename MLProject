@@ -1,0 +1,8 @@
+name: lung-cancer-xai
+
+pip_requirements: requirements.txt
+
+entry_points:
+    main:
+        command: "python src/main.py"
+

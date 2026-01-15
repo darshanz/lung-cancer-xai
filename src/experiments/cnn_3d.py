@@ -9,7 +9,7 @@ from models import CNN3D
 from utils import read_config 
 import torch.optim as optim
 from sklearn.metrics import f1_score
-import wandb
+
 import copy
 import time
 from tqdm import  tqdm
@@ -22,7 +22,6 @@ class Basic3DModelRunner():
     '''
     def __init__(self, device, conf_file):
         super(Basic3DModelRunner, self).__init__()
-        wandb.init(project="lung_basic3d")
         config = read_config(conf_file)
         self.device = device
         print(self.device)
@@ -107,7 +106,7 @@ class Basic3DModelRunner():
 
             training_info.set_description_str(
                 f'Epoch {epoch + 1}/{NUM_EPOCHS},  Loss:{epoch_loss:.4f}, C-index(Train):{train_ci:.4f},  C-index(Val):{val_ci:.4f}')
-            wandb.log({"loss":epoch_loss, "train_f1": train_ci, "val_f1": val_ci})
+            #wandb.log({"loss":epoch_loss, "train_f1": train_ci, "val_f1": val_ci})
             epoch_tqdm.update(1)
 
             # load best model weights and save
@@ -139,5 +138,5 @@ class Basic3DModelRunner():
 
         test_ci = concordance_index(label_list, pd.DataFrame(pred_labels.detach().numpy()), events_test)
 
-        wandb.log({"test_ci": test_ci})
+        #wandb.log({"test_ci": test_ci})
         print("test_ci:", test_ci)
